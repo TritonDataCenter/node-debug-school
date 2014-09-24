@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-var exercise = require('workshopper-exercise')();
+var exercise         = require('workshopper-exercise')();
+var filecontentcheck = require('workshopper-exercise/filecontentcheck');
+
 var path     = require('path');
 var util     = require('util');
 var debug    = require('debug')('debug-school');
@@ -35,5 +37,17 @@ exercise.addPrepare(function(callback) {
 });
 
 exercise.additionalVariables = {};
+
+exercise = filecontentcheck(exercise, function(fileContent) {
+  debug('checking solution...');
+  debug('file content:');
+  debug(fileContent.toString());
+
+  if (fileContent.toString().indexOf('Module._compile') >= 0) {
+    return true;
+  }
+
+  return false;
+});
 
 module.exports = exercise
