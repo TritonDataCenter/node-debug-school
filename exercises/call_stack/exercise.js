@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
 var exercise = require('workshopper-exercise')();
-var spawn    = require('child_process').spawn;
-var util     = require('util');
 var path     = require('path');
-var debug    = require('debug')('debug-school');
 var mv       = require('mv');
 
 var config = require('../../config.js');
