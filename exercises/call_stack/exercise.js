@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var exercise         = require('workshopper-exercise')();
-var filecontentcheck = require('workshopper-exercise/filecontentcheck');
+var filecontentcheck = require('../../lib/workshopper-exercise/filecontentcheck');
 
 var path     = require('path');
 var util     = require('util');
@@ -9,7 +9,7 @@ var debug    = require('debug')('debug-school');
 var mv       = require('mv');
 
 var config = require('../../config.js');
-var dumpCore = require('../../lib/dumpcore.js');
+var dumpCore = require('../../lib/core/dumpcore.js');
 
 exercise.addPrepare(function(callback) {
     dumpCore(path.join(__dirname, 'node-script-that-aborts.js'), function(err, coreFilePath) {
