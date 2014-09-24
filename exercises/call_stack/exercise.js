@@ -21,7 +21,10 @@ exercise.addPrepare(function(callback) {
           if (!err) {
             exercise.additionalVariables.coreFilePath = dstCoreFilePath;
           } else {
-	    console.error('Error when moving file from [%] to [%]:', coreFilePath, dstCoreFilePath, err); 
+            console.error('Error when moving file from [%] to [%]:',
+                          coreFilePath,
+                          dstCoreFilePath,
+                          err);
           }
 
           return callback(err);
