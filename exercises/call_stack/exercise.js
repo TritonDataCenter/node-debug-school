@@ -38,16 +38,20 @@ exercise.addPrepare(function(callback) {
 
 exercise.additionalVariables = {};
 
-exercise = filecontentcheck(exercise, function(fileContent) {
+exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('checking solution...');
   debug('file content:');
   debug(fileContent.toString());
 
   if (fileContent.toString().indexOf('Module._compile') >= 0) {
-    return true;
+    return process.nextTick(function() {
+      callback(null, true);
+    });
+  } else {
+    return process.nextTick(function() {
+      callback(null, false);
+    });
   }
-
-  return false;
 });
 
 module.exports = exercise
