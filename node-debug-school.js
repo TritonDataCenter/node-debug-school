@@ -3,7 +3,7 @@
 var   workshopper = require('workshopper')
     , path        = require('path')
     , menu        = require('./exercises/menu')
-    , name        = 'debug-school'
+    , name        = 'node-debug-school'
     , title       = 'NODE.JS DEBUGGING ON STEROIDS'
     , subtitle    = '\x1b[23mSelect an exercise and hit \x1b[3mEnter\x1b[23m to begin'
 
