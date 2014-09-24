@@ -19,4 +19,5 @@ workshopper({
   , exerciseDir : fullPath('./exercises/')
   , appDir      : __dirname
   , helpFile    : fullPath('help.txt')
+  , footerFile  : fullPath('footer.md')
 })
