@@ -20,6 +20,8 @@ exercise.addPrepare(function(callback) {
         mv(coreFilePath, dstCoreFilePath, {mkdirp: true}, function(err) {
           if (!err) {
             exercise.additionalVariables.coreFilePath = dstCoreFilePath;
+          } else {
+	    console.error('Error when moving file from [%] to [%]:', coreFilePath, dstCoreFilePath, err); 
           }
 
           return callback(err);
