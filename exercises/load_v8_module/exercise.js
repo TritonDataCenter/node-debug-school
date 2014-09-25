@@ -10,7 +10,7 @@ exercise = filecontentcheck(exercise, function(fileContent, callback) {
   if (!fileContent) {
     debug('solution is empty!');
     return process.nextTick(function() {
-      callback(null, true);
+      callback(null, false);
     });
   }
 
