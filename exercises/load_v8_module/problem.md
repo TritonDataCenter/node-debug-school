@@ -29,3 +29,9 @@ $ mdb corefile
 If you want to attach mdb to a running Node.js application, you can use
 `pgrep` and mdb's `-p` command line option.
 
+Finally, to load the v8 module itself, use mdb's command to load any external
+module:
+```
+::load v8
+```
+
