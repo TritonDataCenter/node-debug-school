@@ -40,6 +40,14 @@ exercise.additionalVariables = {};
 
 exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('checking solution...');
+
+  if (!fileContent) {
+    debug('solution is empty!');
+    return process.nextTick(function() {
+      callback(null, true);
+    });
+  }
+
   debug('file content:');
   debug(fileContent.toString());
 
