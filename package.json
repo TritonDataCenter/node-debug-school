@@ -2,7 +2,6 @@
   "name": "node-debug-school",
   "version": "0.0.0",
   "description": "Workshop to learn about debugging Node.js applications.",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,5 +26,6 @@
     "mv": "^2.0.3",
     "workshopper": "git://github.com/misterdjules/workshopper#additional-variables",
     "workshopper-exercise": "^1.1.0"
-  }
+  },
+  "bin": "./node-debug-school.js"
 }
