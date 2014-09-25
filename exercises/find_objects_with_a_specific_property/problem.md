@@ -14,7 +14,7 @@ Then verify your solution by running:
 ```
 $ {appname} verify file-name
 ```
-where file-name is the name of the file you found in mdb's output.
+where `file-name` is the name of the file you found in mdb's output.
 
 # HINTS
 

@@ -29,4 +29,6 @@ exercise = filecontentcheck(exercise, function(fileContent, callback) {
   }
 });
 
+exercise.submissionName = 'solution.txt';
+
 module.exports = exercise

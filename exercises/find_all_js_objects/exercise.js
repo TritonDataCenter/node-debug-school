@@ -37,6 +37,7 @@ exercise.addPrepare(function(callback) {
 });
 
 exercise.additionalVariables = {};
+exercise.submissionName = 'number';
 
 exercise = cmdargscheck(exercise, function(args, callback) {
   debug('checking solution...');

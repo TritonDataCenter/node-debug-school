@@ -41,4 +41,4 @@ Then verify your solution by running:
 ```
 $ {appname} verify max-value
 ```
-where max-value is the maximum number you found in mdb's output.
+where `max-value` is the maximum number you found in mdb's output.

@@ -39,6 +39,7 @@ exercise.addPrepare(function(callback) {
 });
 
 exercise.additionalVariables = {};
+exercise.submissionName = 'filename.js';
 
 exercise = cmdargscheck(exercise, function(args, callback) {
   debug('checking solution...');

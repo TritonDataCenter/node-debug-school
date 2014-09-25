@@ -11,4 +11,4 @@ constructor `Foo`. Once you found it, run the following command line:
 ```
 $ {appname} verify number
 ```
-where number is the number of objects you found with `::findjsobjects`.
+where `number` is the number of objects you found with `::findjsobjects`.

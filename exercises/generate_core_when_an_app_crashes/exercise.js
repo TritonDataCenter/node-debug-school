@@ -26,5 +26,6 @@ function checkSolution(err, stdout, stderr, callback) {
 }
 
 exercise = executeshellscript(exercise, preCommands, checkSolution);
+exercise.submissionName = 'shell-script.sh';
 
 module.exports = exercise

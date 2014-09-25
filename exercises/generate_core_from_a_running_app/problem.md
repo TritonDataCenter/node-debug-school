@@ -14,6 +14,6 @@ Use `gcore` to generate a core file from a running Node.js application.
 Once you managed to use gcore to generate a core file from a running Node.js
 application, run the following command line to verify your solution:
 ```
-$ {appname} verify core-file
+$ {appname} verify corefile
 ```
-where 'core-file' is the path to the core file that has just been generated.
+where `corefile` is the path to the core file that has just been generated.

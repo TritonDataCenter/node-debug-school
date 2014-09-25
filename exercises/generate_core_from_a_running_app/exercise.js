@@ -14,4 +14,6 @@ exercise = filecustomcheck(exercise, function(filePath, callback) {
   return isCoreFile(filePath, callback);
 });
 
+exercise.submissionName = 'corefile';
+
 module.exports = exercise

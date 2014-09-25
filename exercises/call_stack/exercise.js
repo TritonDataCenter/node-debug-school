@@ -37,6 +37,7 @@ exercise.addPrepare(function(callback) {
 });
 
 exercise.additionalVariables = {};
+exercise.submissionName = 'callstack.txt';
 
 exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('checking solution...');
