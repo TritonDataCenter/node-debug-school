@@ -44,7 +44,7 @@ exercise.submissionName = 'solution.txt';
 exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('checking solution...');
 
-  if (!data) {
+  if (!fileContent) {
     debug('solution is empty!');
     return process.nextTick(function() {
       callback(null, false);
@@ -54,10 +54,10 @@ exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('file content:');
   debug(fileContent.toString());
 
-  var lines = fileContent.split('\n');
+  var lines = fileContent.toString().split('\n');
   var total = 0;
   lines.forEach(function(line) {
-    total += line >>> 0;
+    total += line.trim() >>> 0;
   });
 
   if (total === common.expectedTotal) {
