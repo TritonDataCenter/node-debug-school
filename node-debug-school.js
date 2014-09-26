@@ -7,7 +7,7 @@ var argv        = require('minimist')(process.argv.slice(2));
 
 var menu        = require('./exercises/menu');
 var platform    = require('./lib/platform/platform.js');
-var progressMsg = require('./lib/progress/progressMsg.js');
+var progressMsg = require('./lib/progress/progressmsg.js');
 
 var subtitle = '\x1b[23mSelect an exercise and hit \x1b[3mEnter\x1b[23m to begin';
 
