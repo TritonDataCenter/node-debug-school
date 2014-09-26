@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-var exercise         = require('workshopper-exercise')();
-var filecontentcheck = require('../../lib/workshopper-exercise/filecontentcheck');
-
+var exercise = require('workshopper-exercise')();
 var debug    = require('debug')('debug-school');
+
+var filecontentcheck = require('../../lib/workshopper-exercise/filecontentcheck');
+var mdb = require('../../lib/mdb/mdb.js');
 
 exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('checking solution...');
@@ -17,8 +18,7 @@ exercise = filecontentcheck(exercise, function(fileContent, callback) {
   debug('file content:');
   debug(fileContent.toString());
 
-  var lines = fileContent.toString().split('\n');
-  if (lines && lines[0].trim().match(/V8 version: \d+\.\d+\.\d+/)) {
+  if (mdb.v8ModuleLoaded(fileContent.toString())) {
     return process.nextTick(function() {
       callback(null, true);
     });
