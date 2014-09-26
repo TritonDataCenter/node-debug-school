@@ -7,12 +7,13 @@ var path     = require('path');
 var util     = require('util');
 var debug    = require('debug')('debug-school');
 
-var config = require('../../config.js');
-var dumpCore = require('../../lib/core/dumpcore.js');
+var config           = require('../../config.js');
+var dumpCore         = require('../../lib/core/dumpcore.js');
 
 exercise.addPrepare(function(callback) {
   dumpCore(path.join(__dirname, 'node-script-that-aborts.js'),
            config.CORE_FILES_DIRECTORY,
+           { progress: true },
            function onCoreDumped(err, dstCoreFilePath) {
              if (!err) {
                exercise.additionalVariables.coreFilePath = dstCoreFilePath;

@@ -15,6 +15,7 @@ var common = require('./common.js');
 exercise.addPrepare(function(callback) {
   dumpCore(path.join(__dirname, 'node-script-that-aborts.js'),
            config.CORE_FILES_DIRECTORY,
+           { progress: true },
            function onCoreDumped(err, dstCoreFilePath) {
              if (!err) {
                exercise.additionalVariables.coreFilePath = dstCoreFilePath;
