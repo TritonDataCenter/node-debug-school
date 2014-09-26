@@ -7,10 +7,10 @@ var path     = require('path');
 var util     = require('util');
 var debug    = require('debug')('debug-school');
 
-var config = require('../../config.js');
-var dumpCore = require('../../lib/core/dumpcore.js');
-
-var common = require('./common.js');
+var config           = require('../../config.js');
+var dumpCore         = require('../../lib/core/dumpcore.js');
+var cleanupCoreFiles = require('../../lib/core/cleanupcorefiles.js');
+var common           = require('./common.js');
 
 exercise.addPrepare(function(callback) {
   dumpCore(path.join(__dirname, 'node-script-that-aborts.js'),
@@ -23,6 +23,8 @@ exercise.addPrepare(function(callback) {
              return callback(err);
            });
 });
+
+exercise.addCleanup(cleanupCoreFiles);
 
 exercise.additionalVariables = {};
 exercise.submissionName = 'solution.txt';

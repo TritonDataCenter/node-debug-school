@@ -26,6 +26,7 @@
     "debug": "^2.0.0",
     "minimist": "^1.1.0",
     "mv": "^2.0.3",
+    "rimraf": "^2.2.8",
     "workshopper": "git://github.com/misterdjules/workshopper#additional-variables",
     "workshopper-exercise": "^1.1.0"
   },

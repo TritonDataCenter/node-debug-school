@@ -1,9 +1,20 @@
 #!/usr/bin/env node
 
+/*
+ * Because workshopper hard codes command line arguments handling,
+ * we need to to our own and remove any extra command line arguments we support
+ * before workshopper parses the command line
+ */
+var argv = require('minimist')(process.argv.slice(2));
+var devMode = false;
+if (argv.dev) {
+  devMode = true;
+  process.argv.splice(process.argv.indexOf('--dev'), 1);
+}
+
 var path        = require('path');
 
 var workshopper = require('workshopper');
-var argv        = require('minimist')(process.argv.slice(2));
 
 var menu        = require('./exercises/menu');
 var platform    = require('./lib/platform/platform.js');
@@ -27,7 +38,8 @@ function startWorkshop() {
   });
 }
 
-if (argv.dev) {
+
+if (devMode) {
   startWorkshop();
 } else {
   var platformCheckMsg = 'Checking if platform is supported';
