@@ -2,12 +2,11 @@
 
 var util = require('util');
 
-var exercise           = require('workshopper-exercise')();
-var executeshellscript = require('../../lib/workshopper-exercise/executeshellscript');
-
+var exercise = require('workshopper-exercise')();
 var debug    = require('debug')('debug-school');
 
-var isCoreFile = require('../../lib/core/iscorefile.js');
+var executeshellscript = require('../../lib/workshopper-exercise/executeshellscript');
+var isCoreFile         = require('../../lib/core/iscorefile.js');
 
 var preCommands = ['ulimit -Sc 0 >/dev/null 2>&1'];
 if (process.platform === 'sunos') {
@@ -28,4 +27,4 @@ function checkSolution(err, stdout, stderr, callback) {
 exercise = executeshellscript(exercise, preCommands, checkSolution);
 exercise.submissionName = 'shell-script.sh';
 
-module.exports = exercise
+module.exports = exercise;
