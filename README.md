@@ -23,3 +23,20 @@ $ node-debug-school
 
 You will be presented with a series of exercises, each containing instructions
 on how to complete them.
+
+### Command line options
+
+#### --dev
+
+`--dev` is for _development mode_.
+
+Use `--dev` if you'd like to run the workshop without checking if you're using
+a supported platform. This is useful when developping or testing the workshop
+on an unsupported platform.
+
+### Supported platforms
+
+Currently, the only supported platform is SmartOS, because mdb and mdb's v8
+module is needed to complete most exercises. However, if you'd like to run the
+workshop on an unsupported platform, you can still use the `--dev` command
+line switch. It will bypass any platform check. Keep in mind however that some parts of the workshop might not work correctly.
