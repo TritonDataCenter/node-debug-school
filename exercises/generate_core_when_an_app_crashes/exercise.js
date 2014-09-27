@@ -28,7 +28,7 @@ exercise.addSetup(function setup(mode, callback) {
           } else {
             debug('Could not disable core dumps generation, reason: ' + err);
           }
-        
+
           return callback(err);
          });
       }
