@@ -19,7 +19,7 @@ files size.
 program when starting your application.
 
 To complete this exercise, write a shell script that generates a core file
-from a Node.js application in the directory `/cores`, with a file name that
+from a Node.js application in the directory `{coresDirectory}`, with a file name that
 follows this pattern:
 ```
 core.pid

@@ -24,6 +24,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "debug": "^2.0.0",
+    "glob": "^4.0.6",
     "minimist": "^1.1.0",
     "mv": "^2.0.3",
     "rimraf": "^2.2.8",
