@@ -41,7 +41,6 @@ function disableCoreDumpsGeneration(originalCoreFilesConfig, callback) {
 exercise.addSetup(function setup(mode, callback) {
   if (mode === 'verify') {
     coreConfig.getCoreFilesConfig(function(err, originalCoreFilesConfig) {
-      console.log('orig core files conf: ', originalCoreFilesConfig);
       exercise.originalCoreFilesConfig = originalCoreFilesConfig;
       disableCoreDumpsGeneration(originalCoreFilesConfig, callback);
     });
