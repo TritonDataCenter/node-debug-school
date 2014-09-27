@@ -37,6 +37,7 @@ on an unsupported platform.
 ### Supported platforms
 
 Currently, the only supported platform is SmartOS, because mdb and mdb's v8
-module is needed to complete most exercises. However, if you'd like to run the
-workshop on an unsupported platform, you can still use the `--dev` command
-line switch. It will bypass any platform check. Keep in mind however that some parts of the workshop might not work correctly.
+module are needed to complete most exercises. However, if you'd like to run
+the workshop on an unsupported platform, you can still use the `--dev` command
+line switch. It will bypass any platform check. Keep in mind however that some
+parts of the workshop might not work correctly.
