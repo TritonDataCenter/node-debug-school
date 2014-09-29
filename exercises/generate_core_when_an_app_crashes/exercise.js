@@ -86,9 +86,11 @@ exercise.addCleanup(function cleanup(mode, pass, callback) {
 function showHints() {
   coreConfig.getCoreFilesConfig(function (err, config) {
     if (err) return;
+
     console.log(chalk.bold.blue('# HINTS'));
     var msg = 'Following are some hints to help you pass this exercise:';
     console.log(chalk.blue(msg));
+
     if (!config.globalCoreDumps) {
       msg = '* Global core dumps are not enabled by your shell script, ' +
             'but should be.';
