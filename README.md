@@ -1,7 +1,7 @@
 # Node.js Debug School
 
-This is a workshop to learn about how to do postmortem debugging of Node.js
-applications.
+This is a workshop to learn about how to do debugging of Node.js applications
+in production, including postmortem debugging.
 
 ## Prerequisites
 
