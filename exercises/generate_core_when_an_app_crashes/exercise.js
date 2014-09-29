@@ -43,6 +43,11 @@ exercise.addSetup(function setup(mode, callback) {
   if (mode === 'verify') {
     coreConfig.getCoreFilesConfig(function(err, originalCoreFilesConfig) {
       exercise.originalCoreFilesConfig = originalCoreFilesConfig;
+      /*
+       * Intentionally disable core dump generation so that students have
+       * to use OS tools (coreadm, systcl, etc.) in their solution shell
+       * script to enable it.
+       */
       disableCoreDumpsGeneration(originalCoreFilesConfig, callback);
     });
   }
@@ -117,6 +122,11 @@ function checkSolution(err, stdout, stderr, callback) {
   });
 }
 
+/*
+ * Intentionally set core file size limit to 0 so that
+ * it has to be set back to a value large enough to generate a core
+ * by students.
+ */
 var preCommands = ['ulimit -Sc 0 >/dev/null 2>&1'];
 exercise = executeshellscript(exercise, preCommands, checkSolution);
 
