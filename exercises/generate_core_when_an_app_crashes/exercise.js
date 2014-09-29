@@ -9,6 +9,7 @@ var debug    = require('debug')('debug-school');
 var xtend    = require('xtend');
 var async    = require('async');
 var glob     = require('glob');
+var chalk    = require('chalk');
 
 var executeshellscript = require('../../lib/workshopper-exercise/executeshellscript');
 var isCoreFile         = require('../../lib/core/iscorefile.js');
@@ -77,6 +78,29 @@ exercise.addCleanup(function cleanup(mode, pass, callback) {
   });
 });
 
+function showHints() {
+  coreConfig.getCoreFilesConfig(function (err, config) {
+    if (err) return;
+    console.log(chalk.bold.blue('# HINTS'));
+    var msg = 'Following are some hints to help you pass this exercise:';
+    console.log(chalk.blue(msg));
+    if (!config.globalCoreDumps) {
+      msg = '* Global core dumps are not enabled by your shell script, ' +
+            'but should be.';
+      if (process.platform === 'sunos') {
+        msg += ' See man coreadm.';
+      }
+      console.log(chalk.blue(msg));
+    }
+    if (config.globalPattern != path.join(TARGET_CORES_DIR, 'core.%p')) {
+      msg = '* Global core dumps pattern should put core files in /cores ' +
+            'with filenames following the pattern "core.pid".' +
+            ' See man coreadm.';
+      console.log(chalk.blue(msg));
+    }
+  });
+}
+
 function checkSolution(err, stdout, stderr, callback) {
   debug('checking solution...');
   debug('stdout: ' + stdout);
@@ -85,7 +109,12 @@ function checkSolution(err, stdout, stderr, callback) {
   var nodeAppPid = stdout >>> 0;
   var candidateCoreFilePath = path.join(TARGET_CORES_DIR,
                                         util.format('core.%d', nodeAppPid));
-  return isCoreFile(candidateCoreFilePath, callback);
+  return isCoreFile(candidateCoreFilePath, function (err, coreFileValid) {
+    callback(err, coreFileValid);
+    if (!coreFileValid) {
+      showHints();
+    }
+  });
 }
 
 var preCommands = ['ulimit -Sc 0 >/dev/null 2>&1'];
