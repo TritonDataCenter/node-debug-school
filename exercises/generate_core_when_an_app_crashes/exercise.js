@@ -109,7 +109,7 @@ function showHints(outputLines, callback) {
       return callback(err);
     }
 
-    debug('core files config: ' + config);
+    debug('core files config: ' + util.inspect(config));
 
     if (!config.globalCoreDumps) {
       msg = '* Global core dumps are not enabled by your shell script, ' +
@@ -123,7 +123,13 @@ function showHints(outputLines, callback) {
       console.log(chalk.blue(msg));
     }
 
-    if (config.globalPattern !== path.join(TARGET_CORES_DIR, 'core.%p')) {
+    var pidPattern = '%p';
+    if (process.platform === 'darwin') {
+      pidPattern = '%P';
+    }
+
+    var desiredGlobalPattern = path.join(TARGET_CORES_DIR, 'core.' + pidPattern);
+    if (config.globalPattern !== desiredGlobalPattern) {
       msg = '* Global core dumps pattern should put core files in /cores ' +
             'with filenames following the pattern "core.pid".';
 
@@ -149,8 +155,8 @@ function checkSolution(err, stdout, stderr, callback) {
   if (!outputLines || outputLines.length !== 3) {
     showHints(outputLines, function(err) {
       if (err) {
-        debug('Error when displaying solution hints: ' + util.inspect(err));     
-      }      
+        debug('Error when displaying solution hints: ' + util.inspect(err));
+      }
       return callback(null, false);
     });
   } else {
