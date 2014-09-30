@@ -90,7 +90,10 @@ function showHints(outputLines, callback) {
   msg = 'Following are some hints to help you pass this exercise:';
   console.log(chalk.blue(msg));
 
-  if (!outputLines || outputLines.length !== 3) {
+  var nbExpectedOutputLines = 3 + (process.platform === 'sunos' ? 1 : 0);
+  debug('Output lines expected: ' + nbExpectedOutputLines);
+
+  if (!outputLines || outputLines.length !== nbExpectedOutputLines) {
     msg = "* It seems that your script doesn't follow the instructions " +
           "regarding its output format, please read the instructions " +
           "carefully again.";
@@ -111,8 +114,8 @@ function showHints(outputLines, callback) {
 
     debug('core files config: ' + util.inspect(config));
 
-    if (!config.globalCoreDumps) {
-      msg = '* Global core dumps are not enabled by your shell script, ' +
+    if (!config.perProcessCoreDumps && !config.globalCoreDumps) {
+      msg = '* Core dumps are not enabled by your shell script, ' +
             'but should be.';
       if (process.platform === 'sunos') {
         msg += ' See man coreadm.';
@@ -128,18 +131,30 @@ function showHints(outputLines, callback) {
       pidPattern = '%P';
     }
 
-    var desiredGlobalPattern = path.join(TARGET_CORES_DIR, 'core.' + pidPattern);
-    if (config.globalPattern !== desiredGlobalPattern) {
-      msg = '* Global core dumps pattern should put core files in /cores ' +
-            'with filenames following the pattern "core.pid".';
+    var desiredCoreFilesNames = 'core.' + pidPattern;
+    var desiredCoreFilesPattern = path.join(TARGET_CORES_DIR, desiredCoreFilesNames);
 
-      if (process.platform === 'sunos') {
-        msg += ' See man coreadm.';
-      } else if (process.platform === 'darwin') {
-        msg += ' See man sysctl and systctl -A | grep core.';
+    // Check coreadm $$ output from shell script post commands
+    // to see if the student set the correct pattern for per-process
+    // core dumps
+    if (process.platform === 'sunos') {
+      var perProcessCorePattern = outputLines[2].split(':')[1];
+      if (perProcessCorePattern != desiredCoreFilesPattern) {
+        msg = '* Per-process core dumps pattern should put core files in ' +
+              'the directory ' + TARGET_CORES_DIR + ' with file names ' +
+              'following the pattern core.pid. See man coreadm.';
+        console.log(chalk.blue(msg));
       }
+    } else {
+      if (config.globalPattern !== desiredCoreFilesPattern) {
+        msg = '* Global core dumps pattern should put core files in files ' +
+              ' following the following pattern: ' + desiredCoreFilesPattern
+        if (process.platform === 'darwin') {
+          msg += ' See man sysctl and systctl -A | grep core.';
+        }
 
-      console.log(chalk.blue(msg));
+        console.log(chalk.blue(msg));
+      }
     }
 
     return callback();
@@ -152,7 +167,9 @@ function checkSolution(err, stdout, stderr, callback) {
   debug('stderr: ' + stderr);
 
   var outputLines = stdout.split('\n');
-  if (!outputLines || outputLines.length !== 3) {
+  var nbExpectedOutputLines = 3 + (process.platform === 'sunos' ? 1 : 0);
+  debug('Output lines expected: ' + nbExpectedOutputLines);
+  if (!outputLines || outputLines.length !== nbExpectedOutputLines) {
     showHints(outputLines, function(err) {
       if (err) {
         debug('Error when displaying solution hints: ' + util.inspect(err));
@@ -179,13 +196,23 @@ function checkSolution(err, stdout, stderr, callback) {
   }
 }
 
+var preCommands  = [];
+if (process.platform === 'sunos') {
+  preCommands.push('coreadm -p /foo/bar');
+}
 /*
  * Intentionally set core file size limit to 0 so that
  * it has to be set back to a value large enough to generate a core
  * by students.
  */
-var preCommands  = ['ulimit -Sc 0'];
-var postCommands = ["echo -n 'ulimit:'; ulimit -c; exit 0"];
+preCommands.push('ulimit -Sc 0');
+
+var postCommands = ['echo "ulimit:`ulimit -c`"'];
+if (process.platform === 'sunos') {
+  postCommands.push('echo "coreadm:`coreadm $$ | cut -f 2`"');
+}
+postCommands.push("exit 0");
+
 exercise = executeshellscript(exercise,
                               preCommands,
                               postCommands,
