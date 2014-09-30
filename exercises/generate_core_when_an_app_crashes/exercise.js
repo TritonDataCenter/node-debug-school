@@ -83,28 +83,60 @@ exercise.addCleanup(function cleanup(mode, pass, callback) {
   });
 });
 
-function showHints() {
-  coreConfig.getCoreFilesConfig(function (err, config) {
-    if (err) return;
+function showHints(outputLines, callback) {
+  var msg;
 
-    console.log(chalk.bold.blue('# HINTS'));
-    var msg = 'Following are some hints to help you pass this exercise:';
+  console.log(chalk.bold.blue('# HINTS'));
+  msg = 'Following are some hints to help you pass this exercise:';
+  console.log(chalk.blue(msg));
+
+  if (!outputLines || outputLines.length !== 3) {
+    msg = "* It seems that your script doesn't follow the instructions " +
+          "regarding its output format, please read the instructions " +
+          "carefully again.";
     console.log(chalk.blue(msg));
+  }
+
+  var ulimitResult = outputLines[1].split(':')[1];
+  if (ulimitResult !== 'unlimited') {
+    msg = '* Core dumps are limited in size by ulimit. You might want to ' +
+          'disable this limit within your solution script. See man ulimit.';
+    console.log(chalk.blue(msg));
+  }
+
+  coreConfig.getCoreFilesConfig(function (err, config) {
+    if (err) {
+      return callback(err);
+    }
+
+    debug('core files config: ' + config);
 
     if (!config.globalCoreDumps) {
       msg = '* Global core dumps are not enabled by your shell script, ' +
             'but should be.';
       if (process.platform === 'sunos') {
         msg += ' See man coreadm.';
+      } else if (process.platform === 'darwin') {
+        msg += ' See man sysctl and sysctl -A | grep core.';
       }
+
       console.log(chalk.blue(msg));
     }
-    if (config.globalPattern != path.join(TARGET_CORES_DIR, 'core.%p')) {
+
+    if (config.globalPattern !== path.join(TARGET_CORES_DIR, 'core.%p')) {
       msg = '* Global core dumps pattern should put core files in /cores ' +
-            'with filenames following the pattern "core.pid".' +
-            ' See man coreadm.';
+            'with filenames following the pattern "core.pid".';
+
+      if (process.platform === 'sunos') {
+        msg += ' See man coreadm.';
+      } else if (process.platform === 'darwin') {
+        msg += ' See man sysctl and systctl -A | grep core.';
+      }
+
       console.log(chalk.blue(msg));
     }
+
+    return callback();
   });
 }
 
@@ -113,15 +145,32 @@ function checkSolution(err, stdout, stderr, callback) {
   debug('stdout: ' + stdout);
   debug('stderr: ' + stderr);
 
-  var nodeAppPid = stdout >>> 0;
-  var candidateCoreFilePath = path.join(TARGET_CORES_DIR,
+  var outputLines = stdout.split('\n');
+  if (!outputLines || outputLines.length !== 3) {
+    showHints(outputLines, function(err) {
+      if (err) {
+        debug('Error when displaying solution hints: ' + util.inspect(err));     
+      }      
+      return callback(null, false);
+    });
+  } else {
+    var nodeAppPid = outputLines[0] >>> 0;
+    var candidateCoreFilePath = path.join(TARGET_CORES_DIR,
                                         util.format('core.%d', nodeAppPid));
-  return isCoreFile(candidateCoreFilePath, function (err, coreFileValid) {
-    callback(err, coreFileValid);
-    if (!coreFileValid) {
-      showHints();
-    }
-  });
+    return isCoreFile(candidateCoreFilePath, function (solutionErr, coreFileValid) {
+      if (!coreFileValid) {
+        showHints(outputLines, function(err) {
+          if (err) {
+            debug('Error when displaying solution hints: ' + util.inspect(err));
+          }
+
+          return callback(solutionErr, coreFileValid);
+        });
+      } else {
+        return callback(solutionErr, coreFileValid);
+      }
+    });
+  }
 }
 
 /*
@@ -129,8 +178,12 @@ function checkSolution(err, stdout, stderr, callback) {
  * it has to be set back to a value large enough to generate a core
  * by students.
  */
-var preCommands = ['ulimit -Sc 0 >/dev/null 2>&1'];
-exercise = executeshellscript(exercise, preCommands, checkSolution);
+var preCommands  = ['ulimit -Sc 0'];
+var postCommands = ["echo -n 'ulimit:'; ulimit -c; exit 0"];
+exercise = executeshellscript(exercise,
+                              preCommands,
+                              postCommands,
+                              checkSolution);
 
 exercise.submissionName = 'shell-script.sh';
 
