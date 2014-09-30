@@ -15,8 +15,12 @@
     "postmortem",
     "mdb"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Julien Gilli <julien.gilli@joyent.com>",
+  "contributors": [
+    "Timothy J. Fontaine <tj.fontaine@joyent.com>",
+    "Andres Rodriguez <andres@joyent.com>"
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/joyent/node-debug-school/issues"
   },
