@@ -38,7 +38,7 @@ function disableCoreDumpsGeneration(originalCoreFilesConfig, callback) {
     return callback();
   }
 }
-
+if (process.getuid() === 0) {
 exercise.addSetup(function setup(mode, callback) {
   if (mode === 'verify') {
     coreConfig.getCoreFilesConfig(function(err, originalCoreFilesConfig) {
@@ -52,8 +52,9 @@ exercise.addSetup(function setup(mode, callback) {
     });
   }
 });
+}
 
-var TARGET_CORES_DIR = '/cores';
+var TARGET_CORES_DIR = './my-cores';
 
 function cleanTargetCoresDir(callback) {
   var cleanCoreFilesErrors = [];
@@ -72,6 +73,7 @@ function cleanTargetCoresDir(callback) {
   });
 }
 
+if (process.getuid() === 0) {
 exercise.addCleanup(function cleanup(mode, pass, callback) {
   debug('Cleaning up...');
 
@@ -82,6 +84,7 @@ exercise.addCleanup(function cleanup(mode, pass, callback) {
     return callback(err);
   });
 });
+}
 
 function showHints(outputLines, callback) {
   var msg;
