@@ -5,8 +5,8 @@ in production, including postmortem debugging.
 
 ## Prerequisites
 
-You will need an access to a SmartOS instance to run this workshop. The reason
-is that SmartOS currently provides the best experience for postmortem
+__You will need an access to a SmartOS instance to run this workshop.__ The
+reason is that SmartOS currently provides the best experience for postmortem
 debugging of Node.js applications. Later, you will be able to run this
 workshop on other platforms.
 
