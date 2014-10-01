@@ -5,10 +5,18 @@ in production, including postmortem debugging.
 
 ## Prerequisites
 
-__You will need an access to a SmartOS instance to run this workshop.__ The
-reason is that SmartOS currently provides the best experience for postmortem
-debugging of Node.js applications. Later, you will be able to run this
-workshop on other platforms.
+### SmartOS
+
+__You will need an access to a SmartOS instance to run this workshop.__ To get
+an access to a SmartOS instance, the best way is to [sign up for an account on
+Joyent's Public Cloud](https://my.joyent.com/landing/signup/701800000015N22)
+and use the free services tier.
+
+The reason for such a requirement is that SmartOS _currently_ provides the
+best experience for postmortem debugging of Node.js applications. Later, you
+will be able to run this workshop on other platforms (like any platform
+supported by lldb, thanks to the work of @tjfontaine on
+[lldb-v8](https://github.com/tjfontaine/lldb-v8).
 
 ## How to start the workshop?
 
