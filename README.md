@@ -14,7 +14,7 @@ workshop on other platforms.
 
 Simply install node-debug-school globally (you will need root access to do that):
 ```
-$ npm install -g node-debug-school
+$ npm install -g git+https://git@github.com/joyent/node-debug-school.git
 ```
 and start `node-debug-school`:
 ```
