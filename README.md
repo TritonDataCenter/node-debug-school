@@ -14,9 +14,10 @@ and use the free services tier.
 
 The reason for such a requirement is that SmartOS _currently_ provides the
 best experience for postmortem debugging of Node.js applications. Later, you
-will be able to run this workshop on other platforms (like any platform
-supported by lldb, thanks to the work of @tjfontaine on
-[lldb-v8](https://github.com/tjfontaine/lldb-v8).
+will be able to run this workshop on other platforms. For instance, TJ
+Fontaine has been working on [v8 support for
+lldb](https://github.com/tjfontaine/lldb-v8), which should help porting this
+workshop to any platform where lldb is available.
 
 ## How to start the workshop?
 
