@@ -49,7 +49,7 @@ function fullPath(relPath) {
 function startWorkshop() {
   workshopper({
       name        : 'node-debug-school'
-    , title       : 'NODE.JS DEBUGGING ON STEROIDS'
+    , title       : 'NODE.JS DEBUGGING IN PRODUCTION'
     , subtitle    : subtitle
     , exerciseDir : fullPath('./exercises/')
     , appDir      : __dirname
