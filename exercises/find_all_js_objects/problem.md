@@ -12,3 +12,11 @@ constructor `Foo`. Once you found it, run the following command line:
 $ {appname} verify number
 ```
 where `number` is the number of objects you found with `::findjsobjects`.
+
+# HINTS
+
+Don't forget that you'll need to load mdb's v8 module to have access to
+`::findjsobjects` within mdb:
+```
+::load v8
+```
