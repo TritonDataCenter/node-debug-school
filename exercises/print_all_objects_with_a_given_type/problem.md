@@ -33,24 +33,26 @@ Finally, enter:
 > ::findjsobjects
 ```
 
-You should be presented with a list of objects grouped by constructor name.
+You should be presented with a list of objects grouped by __properties
+signatures__.
 
 For instance, the following line of output:
 ```
   OBJECT #OBJECTS   #PROPS CONSTRUCTOR: PROPS
 8b1081d9      456        0 Object
 ```
-means that there are 456 objects with constructor 'Object' on the heap.
+means that there are 456 objects on the heap with the same properties, and
+that their constructor is named 'Object'.
 
 Why is there only one object address then? This single object address is the
-address of a `representative` object. You can get the actual full list of objects
-with the following command:
+address of a __representative object__. You can get the actual full list of
+objects with the following command:
 ```
 > address::findjsobjects
 ```
 where `address` is the address of the representative object.
 
-Now that you can find the list of _all_ objects with a specific type, it's
+Now that you can find the list of __all__ objects with a specific type, it's
 time to use mdb's ability to pipe commands into each other.
 
 To display the content of an object, mdb's v8 provides you with the
