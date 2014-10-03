@@ -74,7 +74,7 @@ exercise.addSetup(function setup(mode, callback) {
 });
 }
 
-var TARGET_CORES_DIR = './my-cores';
+var TARGET_CORES_DIR = '/cores';
 
 function cleanTargetCoresDir(callback) {
   var cleanCoreFilesErrors = [];
