@@ -33,6 +33,33 @@ $ node-debug-school
 You will be presented with a series of exercises, each containing instructions
 on how to complete them.
 
+### Running the workshop on SmartOS as non-root
+
+When starting the workshop as a non-root user on SmartOS, you will get the
+following error message:
+
+```
+Running the workshop as a non-root user requires
+per process core dumps enabled. See man coreadm for
+more info on how to do that, or point your browser to
+https://github.com/joyent/node-debug-school for help.
+```
+
+This means that you need to enable per-process core dumps _as root_ first
+before switching back to your user and run the workshop.
+
+To enable per-process core dumps, simply enter the following command line _as
+root_:
+```
+$ coreadm -e process
+```
+
+Switch back to your user, and you should be able to run the workshop.
+
+If you don't have root access to the machine on which you're running the
+workshop and if you see this error message, you won't be able to run the
+workshop.
+
 ### Command line options
 
 #### --dev
