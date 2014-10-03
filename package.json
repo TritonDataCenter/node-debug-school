@@ -2,6 +2,7 @@
   "name": "node-debug-school",
   "version": "0.0.0",
   "description": "Workshop to learn about debugging Node.js applications.",
+  "homepage": "https://github.com/joyent/node-debug-school",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

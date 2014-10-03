@@ -32,9 +32,12 @@ if (argv.dev) {
   process.argv.splice(process.argv.indexOf('--dev'), 1);
 }
 
-var path        = require('path');
+var path = require('path');
+var util = require('util');
 
 var workshopper = require('workshopper');
+
+var pkgInfo = require('./package.json');
 
 var menu        = require('./exercises/menu');
 var platform    = require('./lib/platform/platform.js');
@@ -72,6 +75,10 @@ if (devMode) {
       startWorkshop();
     } else {
       console.error('Sorry, your current platform is not supported.');
+      var msg = 'Please point your browser to %s for more info on which ' +
+                ' platforms are supported.';
+      msg = util.format(msg, pkgInfo.homepage);
+      console.error(msg);
     }
   });
 }
