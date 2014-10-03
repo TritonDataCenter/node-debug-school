@@ -59,19 +59,19 @@ function disableCoreDumpsGeneration(originalCoreFilesConfig, callback) {
   }
 }
 if (process.getuid() === 0) {
-exercise.addSetup(function setup(mode, callback) {
-  if (mode === 'verify') {
-    coreConfig.getCoreFilesConfig(function(err, originalCoreFilesConfig) {
-      exercise.originalCoreFilesConfig = originalCoreFilesConfig;
-      /*
-       * Intentionally disable core dump generation so that students have
-       * to use OS tools (coreadm, systcl, etc.) in their solution shell
-       * script to enable it.
-       */
-      disableCoreDumpsGeneration(originalCoreFilesConfig, callback);
-    });
-  }
-});
+  exercise.addSetup(function setup(mode, callback) {
+    if (mode === 'verify') {
+      coreConfig.getCoreFilesConfig(function(err, originalCoreFilesConfig) {
+        exercise.originalCoreFilesConfig = originalCoreFilesConfig;
+        /*
+         * Intentionally disable core dump generation so that students have
+         * to use OS tools (coreadm, systcl, etc.) in their solution shell
+         * script to enable it.
+         */
+        disableCoreDumpsGeneration(originalCoreFilesConfig, callback);
+      });
+    }
+  });
 }
 
 var TARGET_CORES_DIR = '/cores';
@@ -94,16 +94,16 @@ function cleanTargetCoresDir(callback) {
 }
 
 if (process.getuid() === 0) {
-exercise.addCleanup(function cleanup(mode, pass, callback) {
-  debug('Cleaning up...');
+  exercise.addCleanup(function cleanup(mode, pass, callback) {
+    debug('Cleaning up...');
 
-  async.parallel([
-    coreConfig.applyConfig.bind(global, exercise.originalCoreFilesConfig),
-    cleanTargetCoresDir
-  ], function cleanupDone(err) {
-    return callback(err);
+    async.parallel([
+      coreConfig.applyConfig.bind(global, exercise.originalCoreFilesConfig),
+      cleanTargetCoresDir
+    ], function cleanupDone(err) {
+      return callback(err);
+    });
   });
-});
 }
 
 function showHints(outputLines, callback) {
