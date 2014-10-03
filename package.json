@@ -18,7 +18,8 @@
   "author": "Julien Gilli <julien.gilli@joyent.com>",
   "contributors": [
     "Timothy J. Fontaine <tj.fontaine@joyent.com>",
-    "Andres Rodriguez <andres@joyent.com>"
+    "Andres Rodriguez <andres@joyent.com>",
+    "Vincent Côté-Roy"
   ],
   "license": "MIT",
   "bugs": {
