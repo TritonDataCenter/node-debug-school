@@ -1,6 +1,6 @@
 {
   "name": "node-debug-school",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A NodeSchool workshop to learn about debugging Node.js applications in production environments.",
   "homepage": "https://github.com/joyent/node-debug-school",
   "scripts": {
