@@ -23,7 +23,7 @@ workshop to any platform where lldb is available.
 
 Simply install node-debug-school globally (you will need root access to do that):
 ```
-$ npm install -g git+https://git@github.com/joyent/node-debug-school.git
+$ npm install -g node-debug-school
 ```
 and start `node-debug-school`:
 ```
