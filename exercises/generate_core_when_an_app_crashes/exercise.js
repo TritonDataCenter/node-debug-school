@@ -106,12 +106,23 @@ if (process.getuid() === 0) {
   });
 }
 
-function showHints(outputLines, callback) {
+function showHints(outputLines, stdErrLines, callback) {
   var msg;
 
   console.log(chalk.bold.blue('# HINTS'));
   msg = 'Following are some hints to help you pass this exercise:';
   console.log(chalk.blue(msg));
+
+  if (stdErrLines && Array.isArray(stdErrLines)) {
+    stdErrLines.forEach(function (stdErrLine) {
+      if (stdErrLine == 'coreadm: ERELPATH') {
+        msg = "* It seems that you're trying to pass a relative path to set a " +
+              "global pattern with coreadm. You should only pass absolute paths " +
+              "to set a global pattern with coreadm.";
+        console.log(chalk.blue(msg));
+      }
+    });
+  }
 
   var nbExpectedOutputLines = 3 + (process.platform === 'sunos' ? 1 : 0);
   debug('Output lines expected: ' + nbExpectedOutputLines);
@@ -189,11 +200,14 @@ function checkSolution(err, stdout, stderr, callback) {
   debug('stdout: ' + stdout);
   debug('stderr: ' + stderr);
 
+  var stdErrLines;
+  if (stderr) stdErrLines = stderr.split('\n');
+
   var outputLines = stdout.split('\n');
   var nbExpectedOutputLines = 3 + (process.platform === 'sunos' ? 1 : 0);
   debug('Output lines expected: ' + nbExpectedOutputLines);
   if (!outputLines || outputLines.length !== nbExpectedOutputLines) {
-    showHints(outputLines, function(err) {
+    showHints(outputLines, stdErrLines, function(err) {
       if (err) {
         debug('Error when displaying solution hints: ' + util.inspect(err));
       }
@@ -205,7 +219,7 @@ function checkSolution(err, stdout, stderr, callback) {
                                         util.format('core.%d', nodeAppPid));
     return isCoreFile(candidateCoreFilePath, function (solutionErr, coreFileValid) {
       if (!coreFileValid) {
-        showHints(outputLines, function(err) {
+        showHints(outputLines, stdErrLines, function(err) {
           if (err) {
             debug('Error when displaying solution hints: ' + util.inspect(err));
           }
@@ -217,6 +231,11 @@ function checkSolution(err, stdout, stderr, callback) {
       }
     });
   }
+}
+
+var preScript;
+if (process.platform === 'sunos') {
+  preScript = path.join(__dirname, 'monkey_patch_core_adm.sh');
 }
 
 var preCommands  = [];
@@ -236,10 +255,11 @@ if (process.platform === 'sunos') {
 }
 postCommands.push("exit 0");
 
-exercise = executeshellscript(exercise,
-                              preCommands,
-                              postCommands,
-                              checkSolution);
+var options = { preCommands: preCommands,
+                postCommands: postCommands,
+                preScript: preScript };
+
+exercise = executeshellscript(exercise, options, checkSolution);
 
 exercise.submissionName = 'shell-script.sh';
 
