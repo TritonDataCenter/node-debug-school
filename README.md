@@ -7,10 +7,7 @@ in production, including postmortem debugging.
 
 ### SmartOS
 
-__You will need an access to a SmartOS instance to run this workshop.__ To get
-an access to a SmartOS instance, the best way is to [sign up for an account on
-Joyent's Public Cloud](https://my.joyent.com/landing/signup/701800000015N22)
-and use the free services tier.
+__You will need an access to a SmartOS instance to run this workshop.__
 
 The reason for such a requirement is that SmartOS _currently_ provides the
 best experience for postmortem debugging of Node.js applications. Later, you
@@ -18,6 +15,49 @@ will be able to run this workshop on other platforms. For instance, TJ
 Fontaine has been working on [v8 support for
 lldb](https://github.com/tjfontaine/lldb-v8), which should help porting this
 workshop to any platform where lldb is available.
+
+To get access to a SmartOS instance, there are three different options:
+* Signing up for an account on Joyent's Public Cloud.
+* Installing SmartOS on your machine within a VMWare VM.
+* If you're attending a workshop, using one of the VMs that the workshop's
+organizer has reserved for workshop attendees.
+
+#### Signing up for an account on Joyent's Public Cloud
+
+The quickest way to install `node-debug-school` is to [sign up for an account
+on Joyent's Public
+Cloud](https://my.joyent.com/landing/signup/701800000015N22) and use the free
+services tier. Your credit card number will be required, but you won't be
+billed if you use only the free tier. You can also cancel your subscription at
+any time.
+
+#### Installing SmartOS on your machine with VMWare
+
+Installing SmartOS on your machine with VMWare takes longer, but it allows you
+to experiment a bit more with this great operating system.
+
+First, you will need to install [VMWare
+Workstation](http://www.vmware.com/ca/en/products/workstation) or [VMWare
+Fusion](http://www.vmware.com/ca/en/products/fusion/features.html) if you're
+using a Mac.
+
+Then, download the [official SmartOS VM for
+VMWare](https://wiki.smartos.org/display/DOC/Download+SmartOS). Now, you can
+[open the SmartOS VM you just downloaded with
+VMWare](https://wiki.smartos.org/display/DOC/SmartOS+as+a+VMware+Guest).
+
+Finally, follow the [instructions to create a zone within the VMWare guest](ht
+tps://wiki.smartos.org/display/DOC/How+to+create+a+zone+%28+OS+virtualized+mac
+hine+%29+in+SmartOS). However, instead of choosing the `base` or `base64`
+images, choose the most recent `nodejs` image. Here's how to find the image UUID for this image:
+```
+# imgadm avail | grep nodejs | tail -1 | cut -f 1 -d ''
+
+```
+
+Depending on your host OS, you will also need to tweak the `nics` section of
+the zone manifest, otherwise you won't be able to access any network from the
+SmartOS zone.
 
 ## How to start the workshop?
 
