@@ -41,9 +41,8 @@ Workstation](http://www.vmware.com/ca/en/products/workstation) or [VMWare
 Fusion](http://www.vmware.com/ca/en/products/fusion/features.html) if you're
 using a Mac.
 
-Then, download the [official SmartOS VM for
-VMWare](https://wiki.smartos.org/display/DOC/Download+SmartOS). Now, you can
-[open the SmartOS VM you just downloaded with
+Then, download the [official SmartOS VM for VMWare](http://bit.ly/smartosvm).
+Now, you can [open the SmartOS VM you just downloaded with
 VMWare](https://wiki.smartos.org/display/DOC/SmartOS+as+a+VMware+Guest).
 
 Finally, follow the [instructions to create a zone within the VMWare guest](ht
