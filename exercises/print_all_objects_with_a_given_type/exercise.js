@@ -46,7 +46,7 @@ exercise.addPrepare(function(callback) {
 exercise.addCleanup(cleanupCoreFiles);
 
 exercise.additionalVariables = {};
-exercise.submissionName = 'max-value';
+exercise.submissionName = 'min-value';
 
 exercise = cmdargscheck(exercise, function(args, callback) {
   debug('checking solution...');
@@ -61,7 +61,7 @@ exercise = cmdargscheck(exercise, function(args, callback) {
   debug('cmd line argument:');
   debug(args[0]);
 
-  if (args[0] >>> 0 === 9) {
+  if (args[0] >>> 0 === 4242) {
     return process.nextTick(function() {
       callback(null, true);
     });
