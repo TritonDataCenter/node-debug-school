@@ -130,7 +130,8 @@ function showHints(outputLines, stdErrLines, callback) {
   if (!outputLines || outputLines.length !== nbExpectedOutputLines) {
     msg = "* It seems that your script doesn't follow the instructions " +
           "regarding its output format, please read the instructions " +
-          "carefully again.";
+          "carefully again. Remember, your Node.js application should only output " +
+          "its process ID to standard output.";
     console.log(chalk.blue(msg));
   }
 
