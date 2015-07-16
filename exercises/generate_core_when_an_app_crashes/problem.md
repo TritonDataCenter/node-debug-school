@@ -14,7 +14,7 @@ core.pid
 ```
 where `pid` is the id of the node process that aborted.
 
-The Node.js application should only output its process ID to the standard
+The Node.js application __should only output its process ID__ to the standard
 output.
 
 To verify your solution, run the following command line:
@@ -41,5 +41,3 @@ prevent it from generating core files.__
 
 2) Pass the `--abort-on-uncaught-exception` command line switch to the `node`
 program when starting your application.
-
-
