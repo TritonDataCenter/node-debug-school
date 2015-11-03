@@ -3,6 +3,8 @@
 This is a workshop to learn about how to do debugging of Node.js applications
 in production, including postmortem debugging.
 
+![Screenshot](node-debug-school-workshop-screenshot.png)
+
 ## Prerequisites
 
 ### SmartOS
