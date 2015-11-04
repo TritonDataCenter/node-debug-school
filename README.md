@@ -1,7 +1,8 @@
 # Node.js Debug School
 
-This is a workshop to learn about how to do debugging of Node.js applications
-in production, including postmortem debugging.
+This workshop teaches students the concept and tools needed to debug Node.js
+applications in production and post-mortem on SmartOS. It is presented as a
+series of short hands-on exercises.
 
 ![Screenshot](node-debug-school-workshop-screenshot.png)
 
